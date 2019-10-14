@@ -1,10 +1,10 @@
 # DSA-Mini-Project
 DSA Project 
 
-#Testing VS Code Interfacing
+Testing VS Code Interfacing
 
-#Test1
+Test1
 
-#Interfacing
+Interfacing
 
 Committing on test branch 
