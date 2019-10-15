@@ -33,7 +33,7 @@ How Ciphering and Deciphering works depicted as a block diagram:
 <img src="https://cdn.ttgtmedia.com/rms/onlineImages/security_cissp_cryptography_desktop.jpg" alt="Block Diagram"/>
 
 -----
-</h3>
+<h3>
 What ciphers are used for
 </h3>
 Symmetric ciphers are most commonly used to secure online communications and are incorporated into many different network protocols to be used to encrypt exchanges. For example, Secure Sockets Layer (SSL) and TLS use ciphers to encrypt application layer data, especially when used with HTTP Secure (HTTPS).
