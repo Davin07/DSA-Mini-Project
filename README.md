@@ -21,3 +21,6 @@ Ciphers can be distinguished into two types by the type of input data:
     block ciphers, which encrypt block of data of fixed size
     
     stream ciphers, which encrypt continuous streams of data.
+
+How Ciphering and Deciphering works depicted as a block diagram:
+![Ciphering and Deciphering][CD.png]
