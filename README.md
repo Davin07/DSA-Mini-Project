@@ -23,4 +23,4 @@ Ciphers can be distinguished into two types by the type of input data:
     stream ciphers, which encrypt continuous streams of data.
 
 How Ciphering and Deciphering works depicted as a block diagram:
-![Ciphering and Deciphering][https://cdn.ttgtmedia.com/rms/onlineImages/security_cissp_cryptography_desktop.jpg]
+
