@@ -28,4 +28,15 @@ Ciphers can be distinguished into two types by the type of input data:
 How Ciphering and Deciphering works depicted as a block diagram:
 
 <img src="https://cdn.ttgtmedia.com/rms/onlineImages/security_cissp_cryptography_desktop.jpg" alt="Block Diagram"/>
+
+-----
+
+What ciphers are used for
+
+Symmetric ciphers are most commonly used to secure online communications and are incorporated into many different network protocols to be used to encrypt exchanges. For example, Secure Sockets Layer (SSL) and TLS use ciphers to encrypt application layer data, especially when used with HTTP Secure (HTTPS).
+
+Virtual private networks (VPNs) that connect remote workers or remote branches into corporate networks use protocols with symmetric ciphers to protect data communications. Symmetric ciphers protect data privacy in most Wi-Fi networks, online banking and e-commerce services, and mobile telephony.
+
+Other protocols, including Secure Shell (SSH), OpenPGP and Secure/Multipurpose Internet Mail Extensions (S/MIME), use asymmetric cryptography to encrypt and authenticate endpoints but also for the secure exchange of symmetric keys to encrypt session data. While public key cryptography is considered more secure than symmetric encryption, it is also more computationally intensive. For performance reasons, protocols often rely on ciphers to encrypt session data.
+
 -----
