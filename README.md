@@ -24,3 +24,5 @@ Ciphers can be distinguished into two types by the type of input data:
 
 How Ciphering and Deciphering works depicted as a block diagram:
 
+<img src="/images/CD.png" alt="Block Diagram"/>
+
