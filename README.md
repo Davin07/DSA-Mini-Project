@@ -2,6 +2,8 @@
 
 Data Structures and Algorithms Project 
 
+---
+
 Ciphering and Deciphering Text 
 
 A cipher (or cypher) is an algorithm for performing encryption or decryption—a series of well-defined steps that can be followed as a procedure.
@@ -22,7 +24,8 @@ Ciphers can be distinguished into two types by the type of input data:
 
     stream ciphers, which encrypt continuous streams of data.
 
+----
 How Ciphering and Deciphering works depicted as a block diagram:
 
-<img src="/images/CD.png" alt="Block Diagram"/>
-
+<img src="https://cdn.ttgtmedia.com/rms/onlineImages/security_cissp_cryptography_desktop.jpg" alt="Block Diagram"/>
+-----
