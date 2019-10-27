@@ -1,4 +1,4 @@
-<h1> Implementation of the Cryptography </h1>
+<h1> Implementation of Cryptography </h1>
 
 
 The entire project  will consist of two main programs - "Encryption" and "Decryption".
@@ -6,9 +6,8 @@ The entire project  will consist of two main programs - "Encryption" and "Decryp
 ----------------
 
 The first program - "Encryption" will be for, as the name suggests, encryption of user-inputed text.
-The user will be asked to input the text he/she wishes to encrypt. A random encryption algorithmn among the following:
-
-is chosen and used to encrypt the text inputed by the user.
+The user will be asked to input the text he/she wishes to encrypt. A random encryption algorithm among the following:
+(List of Algorithms will be updated soon) is chosen and used to encrypt the text inputed by the user.
 
 If the encryption method requires a key, the user is asked to a input a key. The key plays an integral role in the encryption of the text. Without knowledge of the key, it should be extremely difficult, if not impossible, to decrypt the resulting ciphertext into readable plaintext.
 
