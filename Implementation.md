@@ -7,7 +7,17 @@ The entire project  will consist of two main programs - "Encryption" and "Decryp
 
 The first program - "Encryption" will be for, as the name suggests, encryption of user-inputed text.
 The user will be asked to input the text he/she wishes to encrypt. A random encryption algorithm among the following:
-(List of Algorithms will be updated soon) is chosen and used to encrypt the text inputed by the user.
+1. Keyword Cipher
+2. Caesar Cipher
+3. XOR Cipher
+4. ROT13 Cipher
+5. Vernam Cipher
+6. Vigenere Cipher
+7. Playfair Cipher
+8. Polybius Square Cipher
+9. Atbash Cipher
+10. Latin Alphabet Cipher 
+is chosen and used to encrypt the text inputed by the user.
 
 If the encryption method requires a key, the user is asked to a input a key. The key plays an integral role in the encryption of the text. Without knowledge of the key, it should be extremely difficult, if not impossible, to decrypt the resulting ciphertext into readable plaintext.
 
