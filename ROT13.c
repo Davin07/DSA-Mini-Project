@@ -3,18 +3,12 @@
 #include<string.h>
 #include<ctype.h>
 
-void append(char* s, char c) 
-{
-        int len = strlen(s);
-        s[len] = c;
-        s[len+1] = '\0';
-}
+
 
 char enc[100], plt[100], dec[100];
 int key = 13;
-char sp = ' ';
 
-void rot_en(char plt[])
+void rot_en(char* plt)
 {
 
     char ch;
@@ -51,17 +45,17 @@ void rot_en(char plt[])
         }
         else
         {
-            enc[i] = enc[i];
+            enc[i] = plt[i];
         }
         
 	}
     enc[i] = '\0';
 	
-	printf("Encrypted message: %s", enc);
+	puts(enc);
 
 }
 
-void rot_de(char enc [], int key)
+void rot_de(char* enc, int key)
 {
     char ch;
 	int i;
@@ -98,8 +92,9 @@ void rot_de(char enc [], int key)
             dec[i] = enc[i];
         }
 	}
+	dec[i] = '\0';
 	
-	printf(" \n Decrypted message: %s", dec);
+	puts(dec);
 }
 
 
@@ -107,7 +102,7 @@ void main()
 {
     
     printf("Enter the message \n");
-    scanf("%s", plt);
+    gets(plt);
     rot_en(plt);
     rot_de(enc, key);
 }
