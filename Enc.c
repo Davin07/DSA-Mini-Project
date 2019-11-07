@@ -12,13 +12,25 @@
 char ciphertext[200], enc[200], dec[200], plt[200];
 int strint[100];
 
-//For removal of spaces 
+//For appending a character to a string 
 void append(char* s, char c) 
 {
         int len = strlen(s);
         s[len] = c;
         s[len+1] = '\0';
 }
+
+
+//For removal of spaces 
+int removeSpaces(char* plain, int ps) 
+{ 
+    int i, count = 0; 
+    for (i = 0; i < ps; i++) 
+        if (plain[i] != ' ') 
+            plain[count++] = plain[i]; 
+    plain[count] = '\0'; 
+    return count; 
+} 
 
 //KEYWORD CIPHER ALGORITHM
 void keyenc(char plt[])
