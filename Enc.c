@@ -20,8 +20,7 @@ void append(char* s, char c)
         s[len+1] = '\0';
 }
 
-
-//For removal of spaces 
+//For removal of spaces
 int removeSpaces(char* plain, int ps) 
 { 
     int i, count = 0; 
@@ -111,29 +110,33 @@ void caesarenc(char plt[])
 
     char ch;
     int i, key;
-	printf("Enter key: (Number)");
+	printf("Enter key: (Number) \n");
 	scanf("%d", &key);                          
 	
-	for(i = 0; plt[i] != '\0'; ++i){
+	for(i = 0; plt[i] != '\0'; i++)
+    {
 		ch = plt[i];
 		if(isalpha(plt[i]))
 		{
-		if(ch >= 'a' && ch <= 'z'){
-			ch = ch + key;
+		if(ch >= 'a' && ch <= 'z')
+        {
+			//ch = ch + key;
 			
-			if(ch > 'z'){
-				ch = ch - 'z' + 'a' - 1;
-			}
-			
-			enc[i] = ch;
+			//if(ch > 'z')
+            //{
+			//	ch = ch - 'z' + 'a' - 1;
+			//}
+			ch = (ch + key - 'a') % 26 + 'a'; 
+            enc[i] = ch;
 		}
-		else if(ch >= 'A' && ch <= 'Z'){
+		else if(ch >= 'A' && ch <= 'Z')
+        {
 			ch = ch + key;
 			
-			if(ch > 'Z'){
+			if(ch > 'Z')
+            {
 				ch = ch - 'Z' + 'A' - 1;
 			}
-			
 			enc[i] = ch;
 		}
 		}
@@ -169,7 +172,7 @@ void XORencrypt(char str[])
     puts(enc);  
 }
 
-//ROT13 CIPHER ALGORITHM                //Currently does not work for lowercase alphabets from s onwards
+//ROT13 CIPHER ALGORITHM                
 void rotenc(char plt[])
 {
 
@@ -185,12 +188,12 @@ void rotenc(char plt[])
         {
 			if(ch >= 'a' && ch <= 'z')
 			{
-				ch = ch + key;                         
-			
-				if(ch > 'z')
-				{
-				ch = ch - 'z' + 'a' - 1;
-				}
+				//ch = ch + key;                         
+				//if(ch > 'z')
+				//{
+				//ch = ch - 'z' + 'a' - 1;
+				//}
+                ch = (ch + key - 'a') % 26 + 'a'; 
 			
 			enc[i] = ch;
 			}	
@@ -226,12 +229,17 @@ void vernamenc(char str[])
     //Loop to convert ascii value to range 0-25
     //Needs a separate function
     char key[100];
-    printf("Enter the key \n");
+    len=strlen(str);
+    removeSpaces(str, len);
+    printf("Enter the key (Same length as the plain text)\n");
     gets(key);
+    removeSpaces(key, len);
+    int lenp = strlen(key);
     for(i=0;i<len;i++)                                
     {
         strint[i]=(int)str[i];
         keyint[i]=(int)key[i];
+                    
         if(strint[i]>=65&&strint[i]<=90)
         {
             strint[i]-=65;
@@ -248,23 +256,29 @@ void vernamenc(char str[])
         {
             keyint[i]-=97;
         }
+            
     }
     
     //add the values and convert back to string
-    for(i=0;i<len;i++)
+    for(i=0;i<lenp;i++)
     {
+        
         enc[i]=(strint[i]+keyint[i])%26+'A';
+            
     }
     enc[i] = '\0';
     printf("Encrypted Message: %s\n",enc);                 
 }
 
+
+//VIGENERE CIPHER ALGORITHM
 void vigenc(char str[])
 {
     int i, j;
     char key[100];
     printf("Enter the key \n");
     gets(key);
+    
     //Block to make the length of key equal length of string
     for(i=0,j=0;i<strlen(str);i++,j++)                  
     {
@@ -281,17 +295,21 @@ void vigenc(char str[])
     
     for(i=0;str[i]!='\0';i++) 
 	{
-	    if (str[i]>='a'&&str[i]<='z')
+	    
+        
+        if (str[i]>='a'&&str[i]<='z')
     	{
         	str[i]=str[i] - 32;
         	key[i]=key[i] - 32;
         }
+        
     }
     int len=strlen(str);
     
     //Encrypt operation-add str and key
     for(i=0;i<len;i++)
     {
+        if(isalpha(str[i]))
         enc[i]=((str[i]+key[i])%26)+'A';
     }
     enc[i] = '\0';
@@ -301,8 +319,8 @@ void vigenc(char str[])
 //POLYBIUS SQUARE CIPHER
 void polyenc(char str[])
 {
+    removeSpaces(str, strlen(str));
     int c = 0;
-    
     int poly[26], i, j;
     int x=0;
     int k=11;
@@ -379,6 +397,8 @@ void atbashenc(char str[])
     int len=strlen(str);
     for(i=0;i<len;i++)                     
     {
+        if(isalpha(str[i]))
+        {
         if(str[i]>='A'&&str[i]<='Z')
         {
             enc[i]='Z'+'A'-str[i];
@@ -386,9 +406,14 @@ void atbashenc(char str[])
         if(str[i]>='a'&&str[i]<='z')
         {
             enc[i]='z'+'a'-str[i];
+        }
+        }
+        else
+        {
+            enc[i] = str[i];
         } 
     }
-    printf("Encrypted Message %s",enc);                     
+    printf("Encrypted Message: %s",enc);                     
     printf("\n");
 }
 
@@ -427,7 +452,7 @@ void la_enc(char plt[])
 
 
 
-int main()
+void main()
 {
     FILE *fp;
     fp = fopen("data.txt","w");
@@ -435,38 +460,32 @@ int main()
     printf("Enter the text you wish to encrypt \n");
     gets(plt);
     srand(time(0));
-    a = rand(); //Randomizing the algorithm chosen 
-    if(a%10 >= 1 && a%10 <= 10)
+    c: a = rand(); //Randomizing the algorithm chosen 
+    if(a%10 >= 1 && a%10 <= 9)
     {
       s = a%10;
       fprintf(fp, "%d \n", s);
       //fputs("\n", fp);
     }
-    
-    switch(10)
+    else
     {
-        case 1: keyenc(plt); break; //Works
-        case 2: caesarenc(plt); break; //Works with limitations 
-        case 3: XORencrypt(plt); break;  //Does not work
-        case 4: rotenc(plt); break; //Works with limitations 
-        case 5: vernamenc(plt); break;  //Does not work                
-        case 6: vigenc(plt); break; //Works?                     
-        case 7: printf("WIP \n"); break;
-                //PLAYFAIR CIPHER
-        case 8: //printf("WIP \n"); break;
-                polyenc(plt);
-                fprintf(fp, "%s \n", strint); //Doesn't input correct message in the file
-                fclose(fp);
-                goto c;
-        case 9: atbashenc(plt); break; //Works ?                       
-        case 10://printf("WIP \n"); break; 
-                la_enc(plt);
-                for(int i = 0; i < 20; i++)
-                {
-                fprintf(fp, "%d ", strint[i]); 
-                }
-                fclose(fp);
-                goto c;
+        goto c;
+    }
+    switch(s)
+    {
+        case 1: keyenc(plt); break; //Works //No specific input requirements 
+        case 2: caesarenc(plt); break; //Works //No specific input requirements 
+        case 3: atbashenc(plt); break; //Works // No key
+        case 4: rotenc(plt); break; //Works //No specific input requirements
+        case 5: vernamenc(plt); break;  //Works //Key same length as the plain text            
+        
+        case 6: vigenc(plt); break; //Works //Problem with spaces                 
+        
+        case 7: XORencrypt(plt); break; //Broken I guess
+        
+        case 8: polyenc(plt); break;  //I J mix up
+
+        case 9: la_enc(plt); break;
         //All the functions for the above ciphers should take "plt" as an argument.
         //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
         //Masking the key is still a work in progress. 
@@ -474,5 +493,5 @@ int main()
     }
     fprintf(fp, "%s \n", enc); 
     fclose(fp);
-    c: return 1;
+    
 }
