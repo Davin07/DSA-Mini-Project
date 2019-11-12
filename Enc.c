@@ -11,6 +11,7 @@
 
 char ciphertext[200], enc[200], dec[200], plt[200];
 int strint[100];
+int c = 0;
 
 //For appending a character to a string 
 void append(char* s, char c) 
@@ -278,9 +279,10 @@ void vigenc(char str[])
     char key[100];
     printf("Enter the key \n");
     gets(key);
-    
+    int len=strlen(str);
+    removeSpaces(str, len);
     //Block to make the length of key equal length of string
-    for(i=0,j=0;i<strlen(str);i++,j++)                  
+    for(i=0,j=0;i<len;i++,j++)
     {
         if(j==strlen(key))
         {
@@ -288,39 +290,39 @@ void vigenc(char str[])
         }
         key[i]=key[j];
     }
-    
-    /*Code works only for Upper Case letters
-    
-    Block to convert letters to Upper Case*/
-    
-    for(i=0;str[i]!='\0';i++) 
-	{
-	    
-        
-        if (str[i]>='a'&&str[i]<='z')
+    key[i]='\0';
+
+    //Code works only for Upper Case letters
+
+    //Block to convert letters to Upper Case
+        for(i=0;str[i]!='\0';i++)
+	    {
+	    if (str[i]>='a'&&str[i]<='z')
     	{
         	str[i]=str[i] - 32;
+    	}
+    	if (key[i]>='a'&&key[i]<='z')
+        {
         	key[i]=key[i] - 32;
         }
-        
-    }
-    int len=strlen(str);
-    
+        }
+
     //Encrypt operation-add str and key
     for(i=0;i<len;i++)
     {
         if(isalpha(str[i]))
         enc[i]=((str[i]+key[i])%26)+'A';
     }
-    enc[i] = '\0';
-    printf("%s \n",enc);                     
+    enc[i]='\0';
+    printf("Encrypted Message: %s\n",enc);
+      
 }
 
 //POLYBIUS SQUARE CIPHER
 void polyenc(char str[])
 {
     removeSpaces(str, strlen(str));
-    int c = 0;
+    //int c = 0;
     int poly[26], i, j;
     int x=0;
     int k=11;
@@ -378,7 +380,8 @@ void polyenc(char str[])
     } 
     if(str[i]==' ')
     {
-        continue;    
+        continue;
+        c++;  
     }
         i++;
     }
@@ -421,7 +424,8 @@ void atbashenc(char str[])
 void la_enc(char plt[])
 {
     
-	int i, c = 0;
+	int i;
+    //int c = 0;
     for(i = 0; i < plt[i] != '\0'; i++)
     {
         strint[i] = (int)plt[i];                                    //STRINT C
@@ -439,7 +443,8 @@ void la_enc(char plt[])
         }
         if(plt[i] == ' ')
         {
-            continue;
+            strint[i] = (int)plt[i];
+            c++;
         }
     }
 	printf("Encrypted Message \n");
@@ -471,11 +476,11 @@ void main()
     {
         goto c;
     }
-    switch(s)
+    switch(9)
     {
         case 1: keyenc(plt); break; //Works //No specific input requirements 
         case 2: caesarenc(plt); break; //Works //No specific input requirements 
-        case 3: atbashenc(plt); break; //Works // No key
+        case 3: atbashenc(plt); break; //Works //No key
         case 4: rotenc(plt); break; //Works //No specific input requirements
         case 5: vernamenc(plt); break;  //Works //Key same length as the plain text            
         
@@ -483,9 +488,18 @@ void main()
         
         case 7: XORencrypt(plt); break; //Broken I guess
         
-        case 8: polyenc(plt); break;  //I J mix up
-
-        case 9: la_enc(plt); break;
+        case 8: polyenc(plt); //Works //I J mix up
+                for(i = 0; i < c; i++)
+                {
+                    fprintf(fp, "%d ", strint[i]);   
+                }
+                break;
+        case 9: la_enc(plt); //Works // Spaces are printed as '32'
+                for(i = 0; i < c; i++)
+                {
+                    fprintf(fp, "%d ", strint[i]);   
+                }
+                break;
         //All the functions for the above ciphers should take "plt" as an argument.
         //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
         //Masking the key is still a work in progress. 
