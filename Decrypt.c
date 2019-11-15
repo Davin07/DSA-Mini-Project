@@ -17,10 +17,6 @@ void append (char *s, char c)
 }
 
 //1.KEYWORD
-/*Something's wrong, I can feel it.Just a feeling I've got.
-  Like something's about to happen, but I don't know what. 
-  If that means what I think it means,
-  we're in trouble, big trouble*/
 void key_dec (char enc[], char key[])
 {
   char plaintext[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -93,9 +89,6 @@ void key_dec (char enc[], char key[])
 
 
 //2.CAESAR CIPHER
-//No problem
-//No specifications
-
 void caesar_de (char enc[], int key)
 {
   char ch;
@@ -140,8 +133,6 @@ void caesar_de (char enc[], int key)
 
 
 //3.XOR CIPHER
-//No problem
-//No specifications
 void xor_dec (char enc[], char key)
 {
   len=strlen(enc);
@@ -156,8 +147,6 @@ void xor_dec (char enc[], char key)
 }
 
 //4.ROT13 CIPHER
-//No problem
-//No specifications
 void rot_de (char enc[])
 {
   char ch;
@@ -202,8 +191,6 @@ void rot_de (char enc[])
 }
 
 //5.VERNAM CIPHER
-//No problem
-//Key same length as text
 void ver_dec (char enc[], char key[])
 {
   char keyint[100];
@@ -240,8 +227,6 @@ void ver_dec (char enc[], char key[])
 }
 
 //6.VIGENERE CIPHER
-//No problem
-//No specifications
 void vig_dec (char enc[], char key[])
 {
     len=strlen(enc);
@@ -254,6 +239,17 @@ void vig_dec (char enc[], char key[])
         key[i]=key[j];
     }
     printf("%d",len);
+    for(i=0;enc[i]!='\0';i++)
+	{
+	    if (enc[i]>='a'&&enc[i]<='z')
+    	{
+        	enc[i]=enc[i] - 32;
+    	}
+    	if (key[i]>='a'&&key[i]<='z')
+        {
+        	key[i]=key[i] - 32;
+        }
+    }
   //Perform opposite operation of Encrypt
   for (i = 0; i < strlen (enc); i++)
     {
@@ -267,16 +263,13 @@ void vig_dec (char enc[], char key[])
 
 //7.PLAYFAIR CIPHER
 //8.POLYBIUS SQUARE CIPHER
-/*Something's wrong, I can feel it.Just a feeling I've got.
-  Like something's about to happen, but I don't know what. 
-  If that means what I think it means,
-  we're in trouble, big trouble*/
 void poly_dec (int enc[])
 {
   int i, poly[26], x, k, strint[100];
   x = 0;
   k = 11;
   //Assigning Polybius Square numbers to alphabets
+
   for (i = 0; i <= 25; i++)
     {
       if (i <= 8)
@@ -325,8 +318,6 @@ void poly_dec (int enc[])
 }
 
 //9.ATBASH CIPHER
-//No problem
-//No specifications
 void atb_dec (char enc[])
 {
   int len = strlen (enc);
@@ -347,8 +338,6 @@ void atb_dec (char enc[])
 
 
 //10.LATIN ALPHABET CIPHER
-//No problem
-//-1 for space,0 to end text.
 void lat_dec (int enc[])
 {
     int i;
@@ -370,93 +359,105 @@ void lat_dec (int enc[])
 
 int main ()
 {
-  // FILE *fp;
-  //  fp = fopen("data.txt","w");
+   FILE *fp;
+   fp = fopen("data.txt","r");
   int ch, c;
   printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n");
   scanf ("%d", &ch);
-  switch (ch)
+    switch (ch)
     {
+        case 1:
+        {
+            char enc[100];
+            fscanf(fp,"%d ",&c);
+            if(c==8||c==9)
+            {
+                int enc[100];
+                    fscanf (fp,"%d", &enc[i]);
+                for (i = 0; enc[i-1] != 0; i++)
+            }
+            else
+            {
+                char enc[100];
+                fflush (stdin);
+                fgets (enc,50,fp);
+            }
+            break;
+        }
         case 2:
         {
-            a:printf("Which cipher would you like to use?\nEnter\n1-Keyword Cipher\n2-Caesar Cipher\n3-XOR Cipher\n4-Rot-13 Cipher\n5-Vernam Cipher\n6-Vigenere Cipher\n8-Polibius Cipher\n9-Atbash Cipher\n10-Latin Alphabet Cipher\n");
-            scanf ("%d", &c);
+            printf("Which cipher would you like to use?\nEnter\n1-Keyword Cipher\n2-Caesar Cipher\n3-XOR Cipher\n4-Rot-13 Cipher\n5-Vernam Cipher\n6-Vigenere Cipher\n8-Polibius Cipher\n9-Atbash Cipher\n10-Latin Alphabet Cipher\n");
+            scanf ("%d",&c);
             printf ("\nEnter the text you wish to decrypt \n");
-            switch (c)
+            if(c==8||c==9)
             {
-                case 8:case 10:
-                {
-                    int enc[100];
-                    printf("Enter numeric text, with spaces between each character and end with 0.\n");
-                    for (i = 0; enc[i-1] != 0; i++)
+                int enc[100];
+                for (i = 0; enc[i-1] != 0; i++)
                     scanf ("%d", &enc[i]);
-                    switch (c)
-                    {
-                        case 8:
-                        poly_dec (enc);
-                        break;
-                        case 10:
-                        lat_dec (enc);
-                        break;
-                    }
-                }
-                default:
-                {
-                    char enc[100];
-                    fflush (stdin);
-                    gets (enc);
-                    switch (c)
-                    {
-                        case 1:case 6:
-                        {
-                            char key[100];
-                            printf ("Enter a string key\n");
-                            fflush (stdin);
-                            gets (key);
-                            if (c == 1)	//KEYWORD CIPHER
-                            key_dec (enc, key);
-                            else if (c == 6)	//VIGENERE CIPHER
-                            vig_dec (enc, key);
-                            break;
-                        }
-                        case 3:
-                        {
-                            char key;
-                            printf ("Enter a single character key\n");
-                            scanf ("%c", &key);
-                            xor_dec (enc, key);
-                            break;
-                        }
-                        case 2:
-                        {
-                            int key;
-                            printf ("Enter an integer key\n");
-                            scanf ("%d", &key);
-                            caesar_de (enc, key);
-                            break;
-                        }
-                        case 5:	//VERNAM CIPHER
-                        {
-                            char key[100];
-                            printf ("Enter key of same length as encrypted text\n");
-                            fflush (stdin);
-                            gets (key);
-                            ver_dec (enc, key);
-                            break;
-                        }
-                        case 4:
-                        rot_de (enc);
-                        break;
-                        case 9:
-                        atb_dec (enc);
-                        //All the functions for the above ciphers should take "enc" as an argument.
-                        //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
-                        //Each function should have a return type of char to return the encrypted string which is then stored in the file.
-                        }
-                        goto a;
-                        return 0;
-                }
             }
+            else
+            {
+                char enc[100];
+                fflush (stdin);
+                gets (enc);
+            }
+            break;
         }
     }
+    switch (c)
+    {
+        case 8:
+        poly_dec (enc);
+        break;
+        case 9:
+        lat_dec (enc);
+        break;
+        case 1:case 6:
+        {
+            char key[100];
+            printf ("Enter a string key\n");
+            fflush (stdin);
+            gets (key);
+            if (c == 1)	//KEYWORD CIPHER
+            key_dec (enc, key);
+            else if (c == 6)	//VIGENERE CIPHER
+            vig_dec (enc, key);
+            break;
+        }
+        case 7:
+        {
+            char key;
+            printf ("Enter a single character key\n");
+            scanf ("%c", &key);
+            xor_dec (enc, key);
+            break;
+        }
+        case 2:
+        {
+            int key;
+            printf ("Enter an integer key\n");
+            scanf ("%d", &key);
+            caesar_de (enc, key);
+            break;
+        }
+        case 5:	//VERNAM CIPHER
+        {
+            char key[100];
+            printf ("Enter key of same length as encrypted text\n");
+            fflush (stdin);
+            gets (key);
+            ver_dec (enc, key);
+            break;
+        }
+        case 4:
+        rot_de (enc);
+        break;
+        case 3:
+        atb_dec (enc);
+        //All the functions for the above ciphers should take "enc" as an argument.
+        //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
+        //Each function should have a return type of char to return the encrypted string which is then stored in the file.
+    }
+        //goto a;
+        return 0;
 }
