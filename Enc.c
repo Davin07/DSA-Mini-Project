@@ -159,17 +159,19 @@ void caesarenc(char plt[])
 void XORencrypt(char str[])
 {
     char key;
+    int i;
     printf("Enter the key (A single character) \n");
     scanf("%c", &key);
     int len = strlen(str);
     //loop to traverse each character
     printf("Encypted Message: ");
-    for (int i = 0; i < len; i++) 
+    for (i = 0; i < len; i++) 
     {
         //perform XOR operation to each character and print
         enc[i] = str[i] ^ key; 
                          
     } 
+    enc[i] = '\0';
     puts(enc);  
 }
 
@@ -280,7 +282,7 @@ void vigenc(char str[])
     printf("Enter the key \n");
     gets(key);
     int len=strlen(str);
-    removeSpaces(str, len);
+    //removeSpaces(str, len);
     //Block to make the length of key equal length of string
     for(i=0,j=0;i<len;i++,j++)
     {
@@ -312,6 +314,8 @@ void vigenc(char str[])
     {
         if(isalpha(str[i]))
         enc[i]=((str[i]+key[i])%26)+'A';
+        else
+        enc[i] = str[i];
     }
     enc[i]='\0';
     printf("Encrypted Message: %s\n",enc);
@@ -443,7 +447,7 @@ void la_enc(char plt[])
         }
         if(plt[i] == ' ')
         {
-            strint[i] = (int)plt[i];
+            strint[i] = -1;
             c++;
         }
     }
@@ -476,25 +480,22 @@ void main()
     {
         goto c;
     }
-    switch(9)
+    switch(s)
     {
         case 1: keyenc(plt); break; //Works //No specific input requirements 
         case 2: caesarenc(plt); break; //Works //No specific input requirements 
         case 3: atbashenc(plt); break; //Works //No key
         case 4: rotenc(plt); break; //Works //No specific input requirements
         case 5: vernamenc(plt); break;  //Works //Key same length as the plain text            
-        
-        case 6: vigenc(plt); break; //Works //Problem with spaces                 
-        
+        case 6: vigenc(plt); break; //Works //No specific requirements                 
         case 7: XORencrypt(plt); break; //Broken I guess
-        
         case 8: polyenc(plt); //Works //I J mix up
                 for(i = 0; i < c; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
                 }
                 break;
-        case 9: la_enc(plt); //Works // Spaces are printed as '32'
+        case 9: la_enc(plt); //Works // Spaces are printed as '-1'
                 for(i = 0; i < c; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
