@@ -373,7 +373,7 @@ void polyenc(char str[])
         {
             if(str[i]>='A'&&str[i]<='Z')
             {
-                strint[i] = poly[str[i]-'A'];                   //STRINT C
+                strint[i] = poly[str[i]-'A'];                   
                 c++;
             }
             if(str[i]>='a'&&str[i]<='z')
@@ -381,16 +381,18 @@ void polyenc(char str[])
                 strint[i] = poly[str[i]-'a'];
                 c++;
             }
-    } 
-    if(str[i]==' ')
-    {
+        } 
+        if(str[i]==' ')
+        {
         continue;
+        //strint[i] = -1;
         c++;  
-    }
+        }
         i++;
     }
+    strint[c] = 0;
   printf("Encrypted Message \n");
-  for(i = 0; i < c; i++)
+  for(i = 0; i < c+1; i++)
   {
       printf("%d ", strint[i]);
   }
@@ -451,8 +453,9 @@ void la_enc(char plt[])
             c++;
         }
     }
+    strint[c] = 0;
 	printf("Encrypted Message \n");
-    for(i = 0; i < c; i++)
+    for(i = 0; i < c+1; i++)
 	{
 		printf("%d ", strint[i]);
 	}
@@ -480,7 +483,7 @@ void main()
     {
         goto c;
     }
-    switch(s)
+    switch(8)
     {
         case 1: keyenc(plt); break; //Works //No specific input requirements 
         case 2: caesarenc(plt); break; //Works //No specific input requirements 
@@ -490,13 +493,13 @@ void main()
         case 6: vigenc(plt); break; //Works //No specific requirements                 
         case 7: XORencrypt(plt); break; //Broken I guess
         case 8: polyenc(plt); //Works //I J mix up
-                for(i = 0; i < c; i++)
+                for(i = 0; i < c+1; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
                 }
                 break;
         case 9: la_enc(plt); //Works // Spaces are printed as '-1'
-                for(i = 0; i < c; i++)
+                for(i = 0; i < c+1; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
                 }
