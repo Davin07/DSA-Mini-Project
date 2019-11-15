@@ -483,7 +483,7 @@ void main()
     {
         goto c;
     }
-    switch(8)
+    switch(s)
     {
         case 1: keyenc(plt); break; //Works //No specific input requirements 
         case 2: caesarenc(plt); break; //Works //No specific input requirements 
