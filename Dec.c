@@ -146,27 +146,26 @@ void caesar_de (char encc[])
 	}
 
     }
-//puts(dec);
   printf ("\nDecrypted message: %s\n", dec);
 }
 
-
-//3.XOR CIPHER
-void xor_dec (char encc[])
+//3.ATBASH CIPHER
+void atb_dec (char encc[])
 {
-  len=strlen(encc);
-  char key;
-    printf ("Enter a single character key\n");
-    scanf ("%c", &key);
-
-  //loop to traverse each character
-  for (int i = 0; i < len; i++)
+  int len = strlen (encc);
+  for (i = 0; i < len; i++)
     {
-      //perform XOR operation to each character and print
-      dec[i] = encc[i] ^ key;
+      if (encc[i] >= 'A' && encc[i] <= 'Z')
+	{
+	  encc[i] = 'Z' + 'A' - encc[i];
+	}
+      if (encc[i] >= 'a' && encc[i] <= 'z')
+	{
+	  encc[i] = 'z' + 'a' - encc[i];
+	}
     }
-    fflush(stdout);
-    puts (dec);
+  printf ("\n%s\n", encc);
+  printf ("\n");
 }
 
 //4.ROT13 CIPHER
@@ -292,83 +291,27 @@ void vig_dec (char encc[])
   printf ("\n%s\n", dec);
 }
 
-//7.PLAYFAIR CIPHER
-//8.POLYBIUS SQUARE CIPHER
-void poly_dec (int encc[])
+//7.XOR CIPHER
+void xor_dec (char encc[])
 {
-  int i, poly[26], x, k, strint[S];
-  x = 0;
-  k = 11;
-  //Assigning Polybius Square numbers to alphabets
+  len=strlen(encc);
+  char key;
+    printf ("Enter a single character key\n");
+    scanf ("%c", &key);
 
-  for (i = 0; i <= 25; i++)
+  //loop to traverse each character
+  for (int i = 0; i < len; i++)
     {
-      if (i <= 8)
-	{
-	  if (i % 5 == 0 && i != 0)
-	    {
-	      k += 5;
-	      poly[k] = x;
-	      k++;
-	    }
-	  else
-	    {
-	      poly[k] = x;
-	      k++;
-	    }
-	}
-      if (i >= 10)
-	{
-	  if (i % 5 == 0 && i != 0)
-	    {
-	      poly[k] = x;
-	      k++;
-	      k += 5;
-	    }
-	  else
-	    {
-	      poly[k] = x;
-	      k++;
-	    }
-	}
-      if (i == 9)
-	{
-	  poly[24] = 8;		//taking 'i' instead of 'j'
-	}
-      x++;
+      //perform XOR operation to each character and print
+      dec[i] = encc[i] ^ key;
     }
-  printf (" \n Decrypted Code using Polybius Square Cipher \n");
-  for (i = 0; i < c; i++)
-    {
-      dec[i] = poly[strint[i]] + 'A';
-      //printf("%c",(poly[encc[i]]+65));
-    }
-  dec[i] = '\0';
-
-  puts (dec);
-}
-
-//9.ATBASH CIPHER
-void atb_dec (char encc[])
-{
-  int len = strlen (encc);
-  for (i = 0; i < len; i++)
-    {
-      if (encc[i] >= 'A' && encc[i] <= 'Z')
-	{
-	  encc[i] = 'Z' + 'A' - encc[i];
-	}
-      if (encc[i] >= 'a' && encc[i] <= 'z')
-	{
-	  encc[i] = 'z' + 'a' - encc[i];
-	}
-    }
-  printf ("\n%s\n", encc);
-  printf ("\n");
+    fflush(stdout);
+    puts (dec);
 }
 
 
-//10.LATIN ALPHABET CIPHER
+
+//8.LATIN ALPHABET CIPHER
 void lat_dec (int enc[])
 {
     int i;
@@ -393,14 +336,14 @@ int main ()
    FILE *fp;
    fp = fopen("data.txt","r");
   int ch, c;
-  a:printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n\tAny other key to exit\n");
+  int enc[S];
+  printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n\tAny other key to exit\n");
   scanf ("%d", &ch);
     switch (ch)
     {
         case 1:
         {
             fscanf(fp," %d ",&c);
-            printf(" %d ",c);
             if(c==8)
             {
                 for (i = 0; enc[i-1] != 0; i++)
@@ -448,9 +391,10 @@ int main ()
         //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
         //Each function should have a return type of char to return the encrypted string which is then stored in the file.
     }
-        goto a;
+//        goto a;
         return 0;
 
 }
+
 
 
