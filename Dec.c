@@ -9,9 +9,9 @@
 #include <unistd.h>		// for EINTR
 #include<ctype.h>
 #include<stdbool.h>
-
-int i, j, c, len;
-char enc[100], dec[100];
+#define S 100
+int i, j, c, len, enc[S];
+char encc[S], dec[S];
 void append (char *s, char c)
 {
   int len = strlen (s);
@@ -20,10 +20,10 @@ void append (char *s, char c)
 }
 
 //1.KEYWORD
-void key_dec(char enc[])
+void key_dec(char encc[])
 {
     int i;
-    char ch,key[100],ciphertext[26];
+    char ch,key[S],ciphertext[26];
     bool arr[26] = {0};
     printf("Enter a string key\n");
     fflush(stdin);
@@ -66,17 +66,17 @@ void key_dec(char enc[])
 
     char plaintext[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int pos;
-	char ch1, ence[100];
+	char ch1, ence[S];
 
 	for(i=0; i < strlen(ciphertext); i++)
     {
         ence[ciphertext[i]]=i;
     }
 
-	for(i = 0; i < strlen(enc); i++)
+	for(i = 0; i < strlen(encc); i++)
 	{
-		ch1 = enc[i];
-		if(isalpha(enc[i]))
+		ch1 = encc[i];
+		if(isalpha(encc[i]))
 		{
 			if(ch1 >= 'a' && ch1 <= 'z')
 			{
@@ -105,17 +105,17 @@ void key_dec(char enc[])
 
 
 //2.CAESAR CIPHER
-void caesar_de (char enc[])
+void caesar_de (char encc[])
 {
   char ch;
   int i,key;
     printf ("Enter an integer key\n");
     scanf ("%d", &key);
 
-  for (i = 0; enc[i] != '\0'; ++i)
+  for (i = 0; encc[i] != '\0'; ++i)
     {
-      ch = enc[i];
-      if (isalpha (enc[i]))
+      ch = encc[i];
+      if (isalpha (encc[i]))
 	{
 	  if (ch >= 'a' && ch <= 'z')
 	    {
@@ -142,7 +142,7 @@ void caesar_de (char enc[])
 	}
       else
 	{
-	  dec[i] = enc[i];
+	  dec[i] = encc[i];
 	}
 
     }
@@ -152,9 +152,9 @@ void caesar_de (char enc[])
 
 
 //3.XOR CIPHER
-void xor_dec (char enc[])
+void xor_dec (char encc[])
 {
-  len=strlen(enc);
+  len=strlen(encc);
   char key;
     printf ("Enter a single character key\n");
     scanf ("%c", &key);
@@ -163,22 +163,22 @@ void xor_dec (char enc[])
   for (int i = 0; i < len; i++)
     {
       //perform XOR operation to each character and print
-      dec[i] = enc[i] ^ key;
+      dec[i] = encc[i] ^ key;
     }
     fflush(stdout);
     puts (dec);
 }
 
 //4.ROT13 CIPHER
-void rot_de (char enc[])
+void rot_de (char encc[])
 {
   char ch;
   int i;
 
-  for (i = 0; enc[i] != '\0'; ++i)
+  for (i = 0; encc[i] != '\0'; ++i)
     {
-      ch = enc[i];
-      if (isalpha (enc[i]))
+      ch = encc[i];
+      if (isalpha (encc[i]))
 	{
 	  if (ch >= 'a' && ch <= 'z')
 	    {
@@ -205,7 +205,7 @@ void rot_de (char enc[])
 	}
       else
 	{
-	  dec[i] = enc[i];
+	  dec[i] = encc[i];
 	}
     }
   dec[i] = '\0';
@@ -214,20 +214,20 @@ void rot_de (char enc[])
 }
 
 //5.VERNAM CIPHER
-void ver_dec (char enc[])
+void ver_dec (char encc[])
 {
-    char keyint[100],key[100];
-    int len=strlen(enc);
-    printf ("Enter key of same length as encrypted text\n");
+    char keyint[S],key[S];
+    int len=strlen(encc);
+    printf ("Enter key of same length as enccrypted text\n");
     fflush (stdin);
     gets (key);
 
   //Loop to convert ascii value to range 0-25
   for (i = 0; i < len; i++)
     {
-      enc[i] = (int) enc[i];
+      enc[i] = (int) encc[i];
       keyint[i] = (int) key[i];
-      if (enc[i] >= 65 && enc[i] <= 90)
+      if (enc[i] >= 65 && encc[i] <= 90)
 	{
 	  enc[i] -= 65;
 	}
@@ -248,19 +248,19 @@ void ver_dec (char enc[])
   //substract the values and convert back to string
   for (i = 0; i < len; i++)
     {
-      dec[i] = (enc[i] - keyint[i] + 26) % 26 + 'A';
+            dec[i] = (enc[i] - keyint[i] + 26) % 26 + 'A';
     }
   printf ("\n%s\n", dec);
 }
 
 //6.VIGENERE CIPHER
-void vig_dec (char enc[])
+void vig_dec (char encc[])
 {
-    char key[100];
+    char key[S];
     printf("Enter a string key\n");
     fflush(stdin);
     gets(key);
-    len=strlen(enc);
+    len=strlen(encc);
     for(i=0,j=0;i<len;i++,j++)
     {
         if(j==strlen(key))
@@ -270,32 +270,33 @@ void vig_dec (char enc[])
         key[i]=key[j];
     }
     printf("%d",len);
-    for(i=0;enc[i]!='\0';i++)
+    for(i=0;encc[i]!='\0';i++)
 	{
-	    if (enc[i]>='a'&&enc[i]<='z')
+	    if (encc[i]>='a'&&encc[i]<='z')
     	{
-        	enc[i]=enc[i] - 32;
+        	encc[i]=encc[i] - 32;
     	}
     	if (key[i]>='a'&&key[i]<='z')
         {
         	key[i]=key[i] - 32;
         }
     }
-  //Perform opposite operation of Encrypt
-  for (i = 0; i < strlen (enc); i++)
+  //Perform opposite operation of enccrypt
+  for (i = 0; i < strlen (encc); i++)
     {
-        if(isalpha(enc[i]))
-      dec[i] = (((enc[i] - key[i]) + 26) % 26) + 'A';
+        if(isalpha(encc[i]))
+      dec[i] = (((encc[i] - key[i]) + 26) % 26) + 'A';
       else
-        dec[i]=enc[i];
+        dec[i]=encc[i];
     }
   printf ("\n%s\n", dec);
 }
 
-/*//8.POLYBIUS SQUARE CIPHER
-void poly_dec (int enc[])
+//7.PLAYFAIR CIPHER
+//8.POLYBIUS SQUARE CIPHER
+void poly_dec (int encc[])
 {
-  int i, poly[26], x, k, strint[100];
+  int i, poly[26], x, k, strint[S];
   x = 0;
   k = 11;
   //Assigning Polybius Square numbers to alphabets
@@ -340,29 +341,29 @@ void poly_dec (int enc[])
   for (i = 0; i < c; i++)
     {
       dec[i] = poly[strint[i]] + 'A';
-      //printf("%c",(poly[enc[i]]+65));
+      //printf("%c",(poly[encc[i]]+65));
     }
   dec[i] = '\0';
 
   puts (dec);
 }
-*/
+
 //9.ATBASH CIPHER
-void atb_dec (char enc[])
+void atb_dec (char encc[])
 {
-  int len = strlen (enc);
+  int len = strlen (encc);
   for (i = 0; i < len; i++)
     {
-      if (enc[i] >= 'A' && enc[i] <= 'Z')
+      if (encc[i] >= 'A' && encc[i] <= 'Z')
 	{
-	  enc[i] = 'Z' + 'A' - enc[i];
+	  encc[i] = 'Z' + 'A' - encc[i];
 	}
-      if (enc[i] >= 'a' && enc[i] <= 'z')
+      if (encc[i] >= 'a' && encc[i] <= 'z')
 	{
-	  enc[i] = 'z' + 'a' - enc[i];
+	  encc[i] = 'z' + 'a' - encc[i];
 	}
     }
-  printf ("\n%s\n", enc);
+  printf ("\n%s\n", encc);
   printf ("\n");
 }
 
@@ -392,34 +393,29 @@ int main ()
    FILE *fp;
    fp = fopen("data.txt","r");
   int ch, c;
-  char encc[100];
-  int enc[100];
-  printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n");
+  a:printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n\tAny other key to exit\n");
   scanf ("%d", &ch);
     switch (ch)
     {
         case 1:
         {
             fscanf(fp," %d ",&c);
-            fprintf(fp," %d ",c);
+            printf(" %d ",c);
             if(c==8)
             {
                 for (i = 0; enc[i-1] != 0; i++)
                     fscanf (fp,"%d", &enc[i]);
-                for (i = 0; enc[i-1] != 0; i++)
-                    fprintf(fp,"%d", enc[i]);
-
             }
             else
             {
                 fflush (stdin);
-                while(fgets(enc,sizeof(enc),fp)!=NULL);
+                while(fgets(encc,sizeof(encc),fp)!=NULL);
             }
         }
         break;
         case 2:
         {
-            printf("Which cipher would you like to use?\nEnter\n1-Keyword Cipher\n2-Caesar Cipher\n3-Atbash Cipher\n4-Rot-13 Cipher\n5-Vernam Cipher\n6-Vigenere Cipher\n7-XOR Cipher\n8-Polibius Cipher\n9-Latin Alphabet Cipher\n");
+            printf("Which cipher would you like to use?\nEnter\n1-Keyword Cipher\n2-Caesar Cipher\n3-Atbash Cipher\n4-Rot-13 Cipher\n5-Vernam Cipher\n6-Vigenere Cipher\n7-XOR Cipher\n8-Latin Alphabet Cipher\n");
             scanf ("%d",&c);
             printf ("\nEnter the text you wish to decrypt \n");
             if(c==8)
@@ -431,27 +427,28 @@ int main ()
             {
 
                 fflush (stdin);
-                gets (enc);
+                gets (encc);
             }
             break;
         }
+        default:
+            exit(0);
     }
      switch (c)
     {
-        case 1: key_dec (enc);   break;
-        case 2: caesar_de (enc);    break;
-        case 3: atb_dec (enc);    break;
-        case 4: rot_de (enc);    break;
-        case 5: ver_dec (enc);    break;
-        case 6: vig_dec (enc);    break;
-        case 7: xor_dec (enc);    break;
+        case 1: key_dec (encc);   break;
+        case 2: caesar_de (encc);    break;
+        case 3: atb_dec (encc);    break;
+        case 4: rot_de (encc);    break;
+        case 5: ver_dec (encc);    break;
+        case 6: vig_dec (encc);    break;
+        case 7: xor_dec (encc);    break;
         case 8: lat_dec (enc);  break;
-		     	     
         //All the functions for the above ciphers should take "enc" as an argument.
         //Requesting the key must be done within the function. The masking of the key will be done using a separate function.
         //Each function should have a return type of char to return the encrypted string which is then stored in the file.
     }
-       // goto a;
+        goto a;
         return 0;
 
 }
