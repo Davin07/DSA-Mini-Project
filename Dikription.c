@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-#include <termios.h>
+//#include <termios.h>
 #include <errno.h>		// for errno
 #include <unistd.h>		// for EINTR
 #include<ctype.h>
@@ -243,7 +243,6 @@ void ver_dec (char encc[])
 	  keyint[i] -= 97;
 	}
     }
-puts(key);
   //substract the values and convert back to string
   for (i = 0; i < len; i++)
     {
@@ -252,7 +251,7 @@ puts(key);
         else
             dec[i] = encc[i];
     }
-    dec[i] = '\n';
+    dec[i] = '\0';
   printf ("\n%s\n", dec);
 }
 
@@ -345,8 +344,8 @@ int main ()
   int ch, c;
   int enc[S];
   printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n\tAny other key to exit\n");
-  scanf ("%d", &ch);
-    switch (ch)
+  //scanf ("%d", &ch);
+    switch (1)
     {
         case 1:
         {
@@ -405,3 +404,4 @@ int main ()
 
 
 
+/**/
