@@ -473,7 +473,7 @@ void main()
     gets(plt);
     srand(time(0));
     c: a = rand(); //Randomizing the algorithm chosen 
-    if(a%10 >= 1 && a%10 <= 9)
+    if(a%10 >= 1 && a%10 <= 8)
     {
       s = a%10;
       fprintf(fp, "%d \n", s);
@@ -492,13 +492,13 @@ void main()
         case 5: vernamenc(plt); break;  //Works //Key same length as the plain text            
         case 6: vigenc(plt); break; //Works //No specific requirements                 
         case 7: XORencrypt(plt); break; //Broken I guess
-        case 8: polyenc(plt); //Works //I J mix up
+        /*case 8: polyenc(plt); //Works //I J mix up
                 for(i = 0; i < c+1; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
                 }
-                break;
-        case 9: la_enc(plt); //Works // Spaces are printed as '-1'
+                break;*/
+        case 8: la_enc(plt); //Works // Spaces are printed as '-1'
                 for(i = 0; i < c+1; i++)
                 {
                     fprintf(fp, "%d ", strint[i]);   
