@@ -344,8 +344,8 @@ int main ()
   int ch, c;
   int enc[S];
   printf ("Enter   1 to decrypt existing text or\n\t2 to enter new text\n\tAny other key to exit\n");
-  //scanf ("%d", &ch);
-    switch (1)
+  scanf ("%d", &ch);
+    switch (ch)
     {
         case 1:
         {
